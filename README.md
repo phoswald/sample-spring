@@ -30,3 +30,14 @@ $ java -jar target/sample-spring-0.0.1-SNAPSHOT.jar
 URLs:
 
 - http://localhost:8080/
+
+## Integrations
+
+### Keycloak
+
+~~~
+$ docker compose -f integrations/keycloak/compose.yaml up
+$ ./integrations/keycloak/setup.sh
+~~~
+
+URL: http://localhost:8091/

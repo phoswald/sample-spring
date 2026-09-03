@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 #
-# Configures the local Keycloak instance (started via docker-compose.yml in this folder)
+# Configures the local Keycloak instance (started via compose.yaml in this folder)
 # with a realm and an OIDC client for the sample-spring application, plus a test user.
-#
-# Usage:
-#   docker compose up -d
-#   ./setup-keycloak.sh
 #
 set -euo pipefail
 
@@ -13,7 +9,7 @@ KEYCLOAK_URL="http://localhost:8091"
 ADMIN_USER="admin"
 ADMIN_PASSWORD="admin"
 
-REALM_NAME="default"
+REALM_NAME="sample"
 CLIENT_ID="sample-spring"
 CLIENT_SECRET="sample-spring-secret"
 
@@ -66,8 +62,7 @@ else
 fi
 
 echo "Creating client '${CLIENT_ID}' (if missing) ..."
-EXISTING_CLIENT_UUID=$(curl -sf -H "${AUTH_HEADER}" \
-    "${KEYCLOAK_URL}/admin/realms/${REALM_NAME}/clients?clientId=${CLIENT_ID}" | jq -r '.[0].id // empty')
+EXISTING_CLIENT_UUID=$(curl -sf -H "${AUTH_HEADER}" "${KEYCLOAK_URL}/admin/realms/${REALM_NAME}/clients?clientId=${CLIENT_ID}" | jq -r '.[0].id // empty')
 
 if [[ -n "${EXISTING_CLIENT_UUID}" ]]; then
     echo "  client already exists, skipping."
@@ -86,14 +81,15 @@ else
               \"serviceAccountsEnabled\": false,
               \"redirectUris\": [\"${REDIRECT_URI}\"],
               \"webOrigins\": [\"${WEB_ORIGIN}\"],
-              \"postLogoutRedirectUris\": [\"${POST_LOGOUT_REDIRECT_URI}\"]
+              \"attributes\": {
+                \"post.logout.redirect.uris\": \"${POST_LOGOUT_REDIRECT_URI}\"
+              }
             }"
     echo "  client created."
 fi
 
 echo "Creating test user '${TEST_USER}' (if missing) ..."
-EXISTING_USER_ID=$(curl -sf -H "${AUTH_HEADER}" \
-    "${KEYCLOAK_URL}/admin/realms/${REALM_NAME}/users?username=${TEST_USER}&exact=true" | jq -r '.[0].id // empty')
+EXISTING_USER_ID=$(curl -sf -H "${AUTH_HEADER}" "${KEYCLOAK_URL}/admin/realms/${REALM_NAME}/users?username=${TEST_USER}&exact=true" | jq -r '.[0].id // empty')
 
 if [[ -n "${EXISTING_USER_ID}" ]]; then
     echo "  user already exists, skipping."
