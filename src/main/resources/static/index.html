@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>sample-spring</title>
+</head>
+<body>
+	<h1>sample-spring</h1>
+	<p>Logged in as: <span id="username">...</span></p>
+	<script>
+		fetch('/api/me')
+			.then(response => response.json())
+			.then(user => document.getElementById('username').textContent = user.username)
+			.catch(error => document.getElementById('username').textContent = 'unknown (' + error + ')');
+	</script>
+</body>
+</html>
