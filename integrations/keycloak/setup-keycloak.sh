@@ -7,23 +7,24 @@
 #   docker compose up -d
 #   ./setup-keycloak.sh
 #
-# All values can be overridden via environment variables, see defaults below.
 set -euo pipefail
 
-KEYCLOAK_URL="${KEYCLOAK_URL:-http://localhost:8081}"
-ADMIN_USER="${ADMIN_USER:-admin}"
-ADMIN_PASSWORD="${ADMIN_PASSWORD:-admin}"
+KEYCLOAK_URL="http://localhost:8091"
+ADMIN_USER="admin"
+ADMIN_PASSWORD="admin"
 
-REALM_NAME="${REALM_NAME:-sample-spring}"
-CLIENT_ID="${CLIENT_ID:-sample-spring-app}"
-CLIENT_SECRET="${CLIENT_SECRET:-sample-spring-secret}"
-REDIRECT_URI="${REDIRECT_URI:-http://localhost:8080/login/oauth2/code/keycloak}"
-POST_LOGOUT_REDIRECT_URI="${POST_LOGOUT_REDIRECT_URI:-http://localhost:8080/}"
-WEB_ORIGIN="${WEB_ORIGIN:-http://localhost:8080}"
+REALM_NAME="default"
+CLIENT_ID="sample-spring"
+CLIENT_SECRET="sample-spring-secret"
 
-TEST_USER="${TEST_USER:-user}"
-TEST_USER_PASSWORD="${TEST_USER_PASSWORD:-password}"
-TEST_USER_EMAIL="${TEST_USER_EMAIL:-user@example.com}"
+APP_URL="http://localhost:8080"
+REDIRECT_URI="${APP_URL}/login/oauth2/code/keycloak"
+POST_LOGOUT_REDIRECT_URI="${APP_URL}/"
+WEB_ORIGIN="${APP_URL}"
+
+TEST_USER="test"
+TEST_USER_PASSWORD="test"
+TEST_USER_EMAIL="test@example.com"
 
 command -v curl >/dev/null || { echo "curl is required but not installed." >&2; exit 1; }
 command -v jq >/dev/null || { echo "jq is required but not installed." >&2; exit 1; }

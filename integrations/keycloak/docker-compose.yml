@@ -8,8 +8,8 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HEALTH_ENABLED: "true"
     ports:
-      # Spring Boot app uses 8080, so Keycloak is exposed on 8081 on the host.
-      - "8081:8080"
+      # Spring Boot app uses 8080, so Keycloak is exposed on 8091 on the host.
+      - "8091:8080"
     volumes:
       - keycloak-data:/opt/keycloak/data
     healthcheck:
