@@ -29,7 +29,7 @@ $ java -jar target/sample-spring-0.0.1-SNAPSHOT.jar
 
 URLs:
 
-- http://localhost:8080/
+- http://localhost:8080/ (Login as test:test in realm sample)
 
 ## Integrations
 
@@ -40,4 +40,4 @@ $ docker compose -f integrations/keycloak/compose.yaml up
 $ ./integrations/keycloak/setup.sh
 ~~~
 
-URL: http://localhost:8091/
+URL: http://localhost:8091/ (Login as admin:admim in realm master)

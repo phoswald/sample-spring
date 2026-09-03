@@ -29,9 +29,9 @@ class MeControllerTest {
 	@Test
 	void getMe_authenticated_returnsUsername() throws Exception {
 		mockMvc.perform(get("/api/me")
-				.with(oidcLogin().idToken(token -> token.claim("preferred_username", "test"))))
+				.with(oidcLogin().idToken(token -> token.claim("preferred_username", "sample-user"))))
 			.andExpect(status().isOk())
-			.andExpect(content().json("{ \"username\": \"test\" }"));
+			.andExpect(content().json("{ \"username\": \"sample-user\" }"));
 	}
 
 	@Test
