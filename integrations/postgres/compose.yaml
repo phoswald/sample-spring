@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: postgres
+    # Spring Boot's Docker Compose support only recognizes the image named "postgres",
+    # so the pgvector image (a Postgres with the vector extension, matching the one used
+    # by the tests) has to declare the service connection explicitly.
+    labels:
+      org.springframework.boot.service-connection: postgres
+    environment:
+      POSTGRES_DB: sample
+      POSTGRES_USER: sample
+      POSTGRES_PASSWORD: sample
+    ports:
+      - "5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+
+volumes:
+  data:

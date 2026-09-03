@@ -8,7 +8,7 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @TestConfiguration(proxyBeanMethods = false)
-class TestcontainersConfiguration {
+public class TestcontainersConfiguration {
 
 	@Bean
 	@ServiceConnection
@@ -16,16 +16,15 @@ class TestcontainersConfiguration {
 		return new KafkaContainer(DockerImageName.parse("apache/kafka-native:latest"));
 	}
 
+	/**
+	 * The only Postgres: a second {@code @ServiceConnection PostgreSQLContainer} would
+	 * contribute a competing JdbcConnectionDetails. The pgvector image is a full Postgres
+	 * that additionally provides the extension used by the vector store.
+	 */
 	@Bean
 	@ServiceConnection
 	PostgreSQLContainer pgvectorContainer() {
 		return new PostgreSQLContainer(DockerImageName.parse("pgvector/pgvector:pg16"));
-	}
-
-	@Bean
-	@ServiceConnection
-	PostgreSQLContainer postgresContainer() {
-		return new PostgreSQLContainer(DockerImageName.parse("postgres:latest"));
 	}
 
 }

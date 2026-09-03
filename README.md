@@ -6,6 +6,7 @@ Experiments with several Spring Framework features in a modern enterprise/AI con
 - Spring Boot
 - Spring Modulith
 - Spring Data JPA
+- Flyway
 - Spring for Apache Kafka
 - Spring Security
 - Spring AI
@@ -32,6 +33,17 @@ URLs:
 - http://localhost:8080/ (Login as test:test in realm sample)
 
 ## Integrations
+
+### Postgres
+
+Started automatically by `mvn spring-boot:run` through Spring Boot's Docker Compose support.
+To run it standalone:
+
+~~~
+$ docker compose -f integrations/postgres/compose.yaml up
+~~~
+
+The schema and its seed data are owned by Flyway, see `src/main/resources/db/migration/`.
 
 ### Keycloak
 
