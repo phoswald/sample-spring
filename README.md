@@ -18,3 +18,15 @@ Along with integrations of other popular systems in the enterprise/AI world:
 - Kafka
 - Keycloak
 - ...
+
+## Development
+
+~~~
+$ mvn clean verify
+$ mvn spring-boot:run
+$ java -jar target/sample-spring-0.0.1-SNAPSHOT.jar
+~~~
+
+URLs:
+
+- http://localhost:8080/
